@@ -8,6 +8,8 @@ back = (0, 255, 120)
 window = display.set_mode((W, H))
 display.set_icon(image.load("tenis_ball.png"))
 display.set_caption("pp by r1ze")
+font.init()
+font_1 = font.SysFont("Arial", 50)
 
 game = True
 finish = False
@@ -43,6 +45,9 @@ class Player(GameSprite):
         if keys_pressed[K_DOWN] and self.rect.y < H - self.size_y:
             self.rect.y += self.speed
 
+score_l = 0
+score_r = 0
+
 
 racket1 = Player('racket.png', 10, W/3, 50, 150, 5)
 racket2 = Player('racket.png', 740, W/3, 50, 150, 5)
@@ -72,6 +77,23 @@ while game:
 
         if sprite.collide_rect(ball, racket2):
             speed_x*= -1
+
+        if ball.rect.x < 0:
+            score_r += 1
+            ball.rect.x = W/2
+            ball.rect.y = H/2
+
+        if ball.rect.x > W-ball.size_x:
+            score_l += 1
+            ball.rect.x = W/2 
+            ball.rect.y = H/2
+
+        score_l_txt = font_1.render(str(score_l), True, (0, 220, 100))
+        score_r_txt = font_1.render(str(score_r), True, (0, 220, 100))
+        window.blit(score_l_txt, (30, 10))
+        window.blit(score_r_txt, (W-50, 10))
+
+        
 
     display.update()
 
