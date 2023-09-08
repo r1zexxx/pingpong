@@ -66,6 +66,12 @@ while game:
 
         if ball.rect.y < 0 or ball.rect.y > H-50:
             speed_y *= -1
+        
+        if sprite.collide_rect(ball, racket1):
+            speed_x *= -1
+
+        if sprite.collide_rect(ball, racket2):
+            speed_x*= -1
 
     display.update()
 
